@@ -22,6 +22,7 @@
             <!-- Optionally, you can add icons to the links -->
             <li @yield('sidebar_home','class=""')><a href="{{ url('home') }}"><i class='fa fa-home'></i> <span>{{ trans('adminlte_lang::message.home') }}</span></a></li>
             <li @yield('sidebar_registro','class=""')><a href="{{ url('registro/registro') }}"><i class='fa fa-edit'></i> <span>Registro</span></a></li>
+            <li @yield('sidebar_reporte','class=""')><a href="{{ url('reporte') }}"><i class='fa fa-edit'></i> <span>Reporte</span></a></li>
         </ul><!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->

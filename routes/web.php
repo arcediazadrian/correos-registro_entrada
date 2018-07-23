@@ -35,15 +35,21 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('registro/registroEntrega', 'RegistroController@registroEntrega');
 
 
-    Route::get('/', 'HomeController@home');
+    Route::get('/', 'HomeController@index');
 
-    Route::get('home', 'HomeController@home');
+    Route::get('home', 'HomeController@index');
 
-    Route::get('reporte', 'HomeController@reporte');
+    Route::get('reporte', 'ReporteController@index');
 
+    Route::get('reporte/pdf', 'ReporteController@reporte');
+
+
+
+    /*
     Route::get('pdf', function(){
         $pdf = PDF::loadview('pdf');
         return $pdf->stream('archivo.pdf');
     });
+    */
 
 });

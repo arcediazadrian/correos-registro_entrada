@@ -34,15 +34,15 @@
                     <!-- /.box-header -->
                     <!-- form start -->
                         <div class="box-body">
-                            @if ($datos['area']->nombre == 'Clasificacion')
+                            @if ($datos['area']->nombre == 'Clasificacion' && $datos['rango']->nombre == 'Empleado')
                             
-                                @include('registros.formularios.clasificacion')
+                                @include('registros.formularios.clasificacion.registro')
 								
-                            @elseif($datos['area']->nombre == 'Almacenaje')
+                            @elseif($datos['area']->nombre == 'Almacenaje' && $datos['rango']->nombre == 'Empleado')
 
                                 @include('registros.formularios.almacenaje')
                            
-                            @elseif($datos['area']->nombre == 'Entrega')
+                            @elseif($datos['area']->nombre == 'Entrega' && $datos['rango']->nombre == 'Empleado')
 
                                 @include('registros.formularios.entrega')
 

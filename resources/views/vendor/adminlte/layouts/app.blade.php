@@ -44,7 +44,7 @@ desired effect
 
         <!-- Main content -->
         <section class="content">
-            <div class="col-md-9 col-md-offset-1">
+            <div class="col-md-10 col-md-offset-1">
             @include('adminlte::layouts.partials.messages')
             </div>
             <!-- Your Page Content Here -->

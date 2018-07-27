@@ -1,0 +1,100 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class RetoquesALaBaseDeDatos extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::table('ciudads', function (Blueprint $table) {
+            $table->dropForeign(['pais_id']);
+            $table->dropColumn('pais_id');
+
+            $table->string('pais_nombre');
+        });
+
+        Schema::table('bitacora_de_registros', function (Blueprint $table) {
+            $table->integer('ciudad_id')->unsigned();
+    
+            $table->foreign('ciudad_id')
+            ->references('id')->on('ciudad');
+        });
+
+        Schema::table('empleados', function (Blueprint $table) {
+            $table->integer('ciudad_id')->unsigned();
+            $table->integer('rango_id')->unsigned();
+    
+            $table->foreign('ciudad_id')
+            ->references('id')->on('ciudad');
+
+            $table->foreign('rango_id')
+            ->references('id')->on('rango');
+        });
+
+        Schema::table('entregas', function (Blueprint $table) {
+            $table->dropColumn('fecha_hora_entrega'); 
+        });
+
+        Schema::dropIfExists('tipo_envios');
+        Schema::dropIfExists('tipo_productos');
+        
+        Schema::table('destinatarios', function (Blueprint $table) {
+            $table->string('apellido_paterno')->nullable()->change();
+            $table->string('apellido_materno')->nullable()->change();
+            $table->string('nombre'->nullable()->change());
+            $table->string('telefono')->nullable()->change();
+            $table->string('calle_avenida')->nullable()->change();
+            $table->string('edificio_nro')->nullable()->change();
+            $table->dropForeign(['zona_id']);
+            $table->string('zona_id')->nullable()->change();
+        });
+
+        Schema::table('envios', function (Blueprint $table) {
+            $table->dateTime('fecha_hora_envio')->nullable()->change();
+            $table->dropForeign(['pais_id']);
+            $table->integer('pais_id')->unsigned()->nullable()->change();
+            $table->dropForeign(['tipo_envio_id']);
+            $table->dropColumn('tipo_envio_id');
+            $table->dropForeign(['tipo_producto_id']);
+            $table->dropColumn('tipo_producto_id');
+
+            $table->integer('tipo_producto_id')->unsigned();
+            $table->foreign('tipo_producto_id')
+            ->references('id')->on('tipo_productos');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('ciudads', function (Blueprint $table) {
+            $table->integer('pais_id')->unsigned();
+    
+            $table->foreign('pais_id')
+            ->references('id')->on('pais');
+        });
+
+        Schema::table('bitacora_de_registros', function (Blueprint $table) {
+            $table->dropForeign(['ciudad_id']);
+            $table->dropColumn('ciudad_id');
+        });
+
+        Schema::table('empleados', function (Blueprint $table) {
+            $table->dropForeign(['ciudad_id']);
+            $table->dropColumn('ciudad_id');
+            $table->dropForeign(['rango_id']);
+            $table->dropColumn('rango_id');
+        });
+    }
+}

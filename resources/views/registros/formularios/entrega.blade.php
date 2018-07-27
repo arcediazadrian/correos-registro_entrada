@@ -3,17 +3,11 @@
 </div>
 
 {{form::hidden('codigo_envio', $datos['codigo_envio'], [])}}
+{{form::hidden('tarifa', $datos['tarifa'], [])}}
     
 <h1 align="center">Datos de la Entrega</h1>
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
-        <div class="form-group">
-            {{form::label('monto_a_pagar', 'Monto a Pagar')}}
-            <div class="input-group">
-                <span class="input-group-addon">Bs</span>
-                {{form::text('monto_a_pagar', '', ['class' => 'form-control', 'placeholder' => 'Monto a Pagar', 'pattern'=>'[0-9]+([\.][0-9]+)?', 'title'=>'Monto a Pagar debe tener numeros y un punto decimal si es necesario'])}}
-            </div>
-        </div>
         <div class="form-group">
             <label>Estado de la Entrega</label>
             <select class="form-control select2" style="width: 100%;" name="estado_entrega_id" id="estado_entrega_id">
@@ -25,21 +19,28 @@
         </div>
     </div>
 </div>
-    
+
+@if ($datos['tarifa'] > 0)
 <h1 align="center">Datos de la Factura</h1>
 <div class="row">
-    <div class="col-md-6">
+        <div class="col-md-6 col-md-offset-3">
+        <div class="form-group">
+            {{form::label('nro_factura', 'Nro Factura')}}
+            {{form::text('nro_factura', '', ['class' => 'form-control', 'placeholder' => 'Nro Factura', 'required', 'pattern'=>'[0-9]+', 'title'=>'El numero de factura solo puede contener numeros'])}}
+        </div>
         <div class="form-group">
             <label>
-                <input type="checkbox" class="flat-red" name="esFactura" id="esFactura" onclick="enableDisable(this.checked, 'nit_factura', 'nombre_factura')">
+                <input type="checkbox" class="flat-red" name="esManual" id="esManual" onclick="enableDisable(this.checked, 'nit_factura', 'nombre_factura')">
                 <script language="javascript">
                 function enableDisable(bEnable, textBoxID1, textBoxID2)
                 {
                     document.getElementById(textBoxID1).disabled = !bEnable;
+                    document.getElementById(textBoxID1).required = bEnable;
                     document.getElementById(textBoxID2).disabled = !bEnable;
+                    document.getElementById(textBoxID2).required = bEnable;
                 }
                 </script>
-                Factura
+                Factura Manual
             </label>
         </div>
             
@@ -53,4 +54,5 @@
         </div>
     </div>
 </div>
+@endif
     

@@ -27,12 +27,22 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('registro/registro', 'RegistroController@registro');
 
     Route::post('registro/guardar', 'RegistroController@guardar');
+
+    Route::post('registro/validar', 'RegistroController@validar');
     
     Route::get('registro/buscar', 'RegistroController@buscar');
     
     Route::get('registro/registroPaquete', 'RegistroController@registroPaquete');
+    
+    Route::get('registro/registroPaquete/getCiudades/{id}', 'RegistroController@getCiudadesDePais');
+    
+    Route::get('registro/registroPaquete/getZonas/{id}', 'RegistroController@getZonasDeCiudad');
 
     Route::post('registro/registroEntrega', 'RegistroController@registroEntrega');
+    
+    Route::get('registro/validacionPaquete', 'RegistroController@validacionPaquete');
+
+    
 
 
     Route::get('/', 'HomeController@index');

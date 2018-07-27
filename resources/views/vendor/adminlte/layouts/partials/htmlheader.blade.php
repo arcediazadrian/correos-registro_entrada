@@ -28,4 +28,9 @@
             echo json_encode($trans);
         @endphp
     </script>
+    <style>
+        #loader{
+        visibility:hidden;
+        }
+    </style>
 </head>

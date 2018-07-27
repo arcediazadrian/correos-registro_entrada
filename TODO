@@ -1,38 +1,6 @@
 TODO list
 
-    - IATA al combo box
-    - FACTURA
     - ANADIR ADMIN A EMPLEADO
-    - Quitar fecha_hora_entrega de tabla entrega
-
-    HASTA MARTES
-    - Mejorar la logica del registro ante errores del usuario
-    - Mejorar la logica de la base de datos añadiendo los atributos necesarios
-    
-    HASTA JUEVES
-    - Evaluar todas las parametricas con Juan Carlos, Wara, Marcelo y Vale
-    - Evaluar base de datos y pedir criticas
-
-    HASTA VIERNES
-    - Realizar cambios basados en evaluaciones
     - Llenar base de datos con los datos acordados de las parametricas
-    
-    SI ALCANZA EL TIEMPO
-    - Hacer un registro (Preguntar sobre que elementos)
     - Evaluar posibilidad de generar espacio disponible por bandeja
-
-    OVERALL
-    - Verificar anterior lista de TODOs
-
-
-Wara
-
-    - Que datos pueden ser nullos
-    - Pais destinatario y envio -> Oficina IATA
-    - Tipo de envio y producto (Marcelo dijo q podriamos cambiarlo todo a un tipo de servicio y tener una opcion de certificado)
-    - Estado de envio (Paquete Violado, parchado, seguro)
-    - Como se genera el monto a pagar
-    - Estado de la entrega (Ya habiamos charlado un poco de esto, cambiarlo a entregado, aduana, rezago?)
-    - Estado de la bitacora
-    - Cambios a bitacora
 

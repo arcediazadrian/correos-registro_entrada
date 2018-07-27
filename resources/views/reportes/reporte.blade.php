@@ -13,7 +13,7 @@
 @endsection
 
 @section('contentheader_level')
-    Home
+    {{$datos['area']->nombre}} > Reporte
 @endsection
 
 
@@ -24,22 +24,22 @@
                 
                 <!-- Default box -->
 				<div class="box">
-                        {!! Form::open(['action' => 'ReporteController@reporte' , 'method' => 'GET']) !!}
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Registro Diario</h3>
-    
-                            <div class="box-tools pull-right">
-                                {{form::submit('Reporte', ['class' => 'btn btn-primary'])}}
-                            </div>
+                    {!! Form::open(['action' => 'ReporteController@reporte' , 'method' => 'GET']) !!}
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Registro Diario</h3>
+                        
+                        <div class="box-tools pull-right">
+                            {{form::submit('Reporte', ['class' => 'btn btn-primary'])}}
                         </div>
-                        <div class="box-body table-responsive no-padding">
-                            @if (count($datos['registros']) > 0)
-                                <table class="table table-hover">
-                                    <tr>
-                                        <th>Codigo Envio</th>
-                                        <th>Hora</th>
-                                    </tr>
-                                    @foreach ($datos['registros'] as $registro)
+                    </div>
+                    <div class="box-body table-responsive no-padding">
+                        @if (count($datos['registros']) > 0)
+                        <table class="table table-hover">
+                            <tr>
+                                <th>Codigo Envio</th>
+                                <th>Hora</th>
+                            </tr>
+                            @foreach ($datos['registros'] as $registro)
                                         <tr>
                                         <th>{{$registro->envio_codigo}}</th>
                                         <th>{{$registro->bitacora_hora}}</th>

@@ -1,4 +1,4 @@
-	
+{{ csrf_field() }}
 <h1>Datos del Destinatario</h1> 
 <div class="row">
 	<div class="col-md-6">                     
@@ -35,7 +35,7 @@
 	<div class="col-md-6 col-md-offset-3"> 
 		<div class="form-group">
 			<label for="pais_id_dest">Pais</label>
-			<select class="form-control select2" style="width: 100%;" name="pais_id_dest" id="pais_id_dest">
+			<select class="form-control" style="width: 100%;" name="pais_id_dest" id="pais_id_dest">
 				<option value="">Seleccione un pais</option>
 				@foreach ($datos['paises'] as $pais)
 					<option value="{{$pais->id}}">{{$pais->nombre}}</option>
@@ -44,20 +44,14 @@
 		</div>
 		<div class="form-group">
 			<label>Ciudad</label>
-			<select class="form-control select2" style="width: 100%;" name="ciudad_id" id="ciudad_id"> 
+			<select class="form-control" style="width: 100%;" name="ciudad_id" id="ciudad_id"> 
 				<option value="">Seleccione una ciudad</option>
-				@foreach ($datos['ciudades'] as $ciudad)
-					<option value="{{$ciudad->id}}">{{$ciudad->nombre}}</option>
-				@endforeach
 			</select>
 		</div>
 		<div class="form-group">
 			<label>Zona</label>
-			<select class="form-control select2" style="width: 100%;" name="zona_id" id="zona_id">
+			<select class="form-control" style="width: 100%;" name="zona_id" id="zona_id">
 				<option value="">Seleccione una zona</option>
-				@foreach ($datos['zonas'] as $zona)
-					<option value="{{$zona->id}}">{{$zona->nombre}}</option>
-				@endforeach
 			</select>
 		</div>
 	</div>
@@ -76,7 +70,7 @@
 			<select class="form-control select2" style="width: 100%;" name="pais_id_env" id="pais_id_env">
 				<option value="">Seleccione un pais</option>
 				@foreach ($datos['iatas'] as $iata)
-					<option value="{{$iata->id}}">{{$iata->nombre}} - {{$iata->oficina_iata}}</option>
+					<option value="{{$iata->id}}">({{$iata->iata}}) {{$iata->nombre}} - {{$iata->oficina_iata}}</option>
 				@endforeach
 			</select>
 		</div>
@@ -102,10 +96,10 @@
 		</div>
 		<div class="form-group">
 			<label>Tipo Envio</label>
-			<select class="form-control select2" style="width: 100%;" name="tipo_envio_id" id="tipo_envio_id">
-				<option value="">Seleccione un tipo de envio</option>
-				@foreach ($datos['tipos_envio'] as $tipo_envio)
-					<option value="{{$tipo_envio->id}}">{{$tipo_envio->tipo_envio}}</option>
+			<select class="form-control select2" style="width: 100%;" name="tipo_servicio_id" id="tipo_servicio_id">
+				<option value="">Seleccione un tipo de servicio</option>
+				@foreach ($datos['tipos_servicio'] as $tipo_servicio)
+					<option value="{{$tipo_servicio->id}}">{{$tipo_servicio->tipo_servicio}}</option>
 				@endforeach
 			</select>
 		</div>
@@ -132,5 +126,9 @@
 			</select>
 		</div>
 	</div>
-</div>	
+</div>
 
+@section('script_clasificacion')
+<script src="{{ asset('js/ciudades.js') }}"></script>
+<script src="{{ asset('js/zonas.js') }}"></script>
+@endsection

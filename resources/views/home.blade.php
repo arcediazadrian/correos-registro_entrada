@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('htmlheader_title')
-	Home
+	Inicio
 @endsection
 
 @section('sidebar_home')
@@ -13,7 +13,7 @@
 @endsection
 
 @section('contentheader_level')
-    Home
+    Inicio
 @endsection
 
 
@@ -25,7 +25,7 @@
 				<!-- Default box -->
 				<div class="box">
 					<div class="box-header with-border">
-						<h3 class="box-title">Home</h3>
+						<h3 class="box-title">Inicio</h3>
                     </div>
                     
 					<div class="box-body">

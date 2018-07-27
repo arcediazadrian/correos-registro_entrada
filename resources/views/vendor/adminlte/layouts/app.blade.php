@@ -1,3 +1,6 @@
+<!-- Este es el layout principal, cualquier nueva vista debera extender este layout -->
+<!-- El layout utiliza elementos parciales que se encuentran en la carpeta de partials y estas igual pueden ser modificadas -->
+
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -51,8 +54,6 @@ desired effect
             @yield('main-content')
         </section><!-- /.content -->
     </div><!-- /.content-wrapper -->
-
-    @include('adminlte::layouts.partials.controlsidebar')
 
     @include('adminlte::layouts.partials.footer')
 

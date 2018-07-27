@@ -12,6 +12,7 @@
             <label>Estado de la Entrega</label>
             <select class="form-control select2" style="width: 100%;" name="estado_entrega_id" id="estado_entrega_id">
                 <option value="">Seleccione un estado de entrega</option>
+                <!-- Se ponen los datos que sacamos de datos en el combobox -->
                 @foreach ($datos['estados_entrega'] as $estado_entrega)
                     <option value="{{$estado_entrega->id}}">{{$estado_entrega->estado_entrega}}</option>
                 @endforeach
@@ -30,6 +31,7 @@
         </div>
         <div class="form-group">
             <label>
+                <!-- Esta checkbox tiene una funcion para deshabilitar y habilitar los campos que se piden -->
                 <input type="checkbox" class="flat-red" name="esManual" id="esManual" onclick="enableDisable(this.checked, 'nit_factura', 'nombre_factura')">
                 <script language="javascript">
                 function enableDisable(bEnable, textBoxID1, textBoxID2)

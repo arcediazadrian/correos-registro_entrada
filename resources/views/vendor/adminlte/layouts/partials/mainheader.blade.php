@@ -40,18 +40,19 @@
                                     <!--<small>{{ trans('adminlte_lang::message.login') }} Nov. 2012</small>-->
                                 </p>
                             </li>
+                            
                             <!-- Menu Body -->
-                            <!--
-                            <li class="user-body">
-                            </li>
-                            -->
+                            <!-- <li class="user-body"></li> -->
+
                             <!-- Menu Footer-->
                             <li class="user-footer">
+                                
                                 <!--
                                 <div class="pull-left">
                                     <a href="{{ url('/settings') }}" class="btn btn-default btn-flat">{{ trans('adminlte_lang::message.profile') }}</a>
                                 </div>
                                 -->
+
                                 <div class="pull-right">
                                     <a href="{{ url('/logout') }}" class="btn btn-default btn-flat" id="logout"
                                        onclick="event.preventDefault();
@@ -76,6 +77,7 @@
                     <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
                 </li>
                 -->
+                
             </ul>
         </div>
     </nav>

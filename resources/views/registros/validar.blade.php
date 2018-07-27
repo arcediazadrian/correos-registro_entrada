@@ -1,3 +1,5 @@
+<!-- Esta es la vista de validacion general, dependiendo del area de cada usuario esta tiene diferente contenido -->
+
 @extends('adminlte::page')
 
 @section('htmlheader_title')

@@ -24,6 +24,9 @@ use App\EstadoEnvio;
 class ReporteController extends Controller
 {
     
+    /*
+    * index: muestra la pagina general de los reportes donde se ven los registros diarios y el boton de generar reporte
+    */
     public function index()
     {
         $id = auth()->user()->id;
@@ -36,6 +39,9 @@ class ReporteController extends Controller
         return view('reportes.reporte',array('datos'=>$datos));
     }
 
+    /*
+    * reporte: genera el reporte en formato pdf dependiendo del area y rango(cargos)
+    */
     public function reporte(){
         $id = auth()->user()->id;
         $empleado = Empleado::all()->where('user_id', $id)->first();
@@ -63,6 +69,9 @@ class ReporteController extends Controller
 
     }
 
+    /*
+    * datosReporte: genera los datos de los registros para el reporte dependiendo del area y rango(cargo)
+    */
     public function datosReporte($empleado_id, $area, $rango){
         $fecha = Carbon::now()->toDateString();
         $registros = [];
@@ -75,6 +84,11 @@ class ReporteController extends Controller
                                      WHERE B.empleado_id = '.$empleado_id.' and B.registro_id = D.registro_id and B.registro_id = E.registro_id and DATE(B.created_at) = "'.$fecha.'"');
 
             foreach($registros as $registro) {
+                /*
+                * Ya que en las tablas solo tenemos los ids de las parametricas, necesitamos generar los nombres de estas
+                * para que se muestren en el reporte
+                */
+                
                 $estado_bitacora = EstadoBitacora::find($registro->bitacora_estado_id);
                 $registro->bitacora_estado_nombre = $estado_bitacora->nombre;
                 if($estado_bitacora->area_id != null){
@@ -119,6 +133,11 @@ class ReporteController extends Controller
                                      WHERE B.empleado_id = '.$empleado_id.' and B.registro_id = E.registro_id and DATE(B.created_at) = "'.$fecha.'"');
 
             foreach($registros as $registro) {
+                /*
+                * Ya que en las tablas solo tenemos los ids de las parametricas, necesitamos generar los nombres de estas
+                * para que se muestren en el reporte
+                */
+
                 $estado_bitacora = EstadoBitacora::find($registro->bitacora_estado_id);
                 $registro->bitacora_estado_nombre = $estado_bitacora->nombre;
                 if($estado_bitacora->area_id != null){
@@ -134,6 +153,11 @@ class ReporteController extends Controller
                                      WHERE B.empleado_id = '.$empleado_id.' and B.registro_id = A.registro_id and B.registro_id = E.registro_id and DATE(B.created_at) = "'.$fecha.'"');
 
             foreach($registros as $registro) {
+                /*
+                * Ya que en las tablas solo tenemos los ids de las parametricas, necesitamos generar los nombres de estas
+                * para que se muestren en el reporte
+                */
+
                 $estado_bitacora = EstadoBitacora::find($registro->bitacora_estado_id);
                 $registro->bitacora_estado_nombre = $estado_bitacora->nombre;
                 if($estado_bitacora->area_id != null){
@@ -150,6 +174,11 @@ class ReporteController extends Controller
                                      WHERE B.empleado_id = '.$empleado_id.' and B.registro_id = ET.registro_id and B.registro_id = F.registro_id and B.registro_id = EV.registro_id and DATE(B.created_at) = "'.$fecha.'"');
 
             foreach($registros as $registro) {
+                /*
+                * Ya que en las tablas solo tenemos los ids de las parametricas, necesitamos generar los nombres de estas
+                * para que se muestren en el reporte
+                */
+                
                 $estado_bitacora = EstadoBitacora::find($registro->bitacora_estado_id);
                 $registro->bitacora_estado_nombre = $estado_bitacora->nombre;
                 if($estado_bitacora->area_id != null){

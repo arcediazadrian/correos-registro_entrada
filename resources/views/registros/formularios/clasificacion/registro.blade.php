@@ -37,6 +37,7 @@
 			<label for="pais_id_dest">Pais</label>
 			<select class="form-control" style="width: 100%;" name="pais_id_dest" id="pais_id_dest">
 				<option value="">Seleccione un pais</option>
+				<!-- Se ponen los datos que sacamos de datos en el combobox -->
 				@foreach ($datos['paises'] as $pais)
 					<option value="{{$pais->id}}">{{$pais->nombre}}</option>
 				@endforeach     
@@ -69,6 +70,7 @@
 			<label>Pais de Envio</label>
 			<select class="form-control select2" style="width: 100%;" name="pais_id_env" id="pais_id_env">
 				<option value="">Seleccione un pais</option>
+				<!-- Se ponen los datos que sacamos de datos en el combobox -->
 				@foreach ($datos['iatas'] as $iata)
 					<option value="{{$iata->id}}">({{$iata->iata}}) {{$iata->nombre}} - {{$iata->oficina_iata}}</option>
 				@endforeach
@@ -79,6 +81,7 @@
 			<div class="input-group">
 				<div class="input-group-prepend">		
 					<span class="input-group-text"><i class="fa fa-calendar"></i></span>
+					<!-- Se ponen maximos y minimos dependiendo de lo q nos pasan en datos -->
 				<input type="date" id="fecha_hora_envio" name="fecha_hora_envio" min="2000-01-01" max="{{$datos['fecha']}}">
 				</div>
 			</div>
@@ -98,6 +101,7 @@
 			<label>Tipo Envio</label>
 			<select class="form-control select2" style="width: 100%;" name="tipo_servicio_id" id="tipo_servicio_id">
 				<option value="">Seleccione un tipo de servicio</option>
+				<!-- Se ponen los datos que sacamos de datos en el combobox -->
 				@foreach ($datos['tipos_servicio'] as $tipo_servicio)
 					<option value="{{$tipo_servicio->id}}">{{$tipo_servicio->tipo_servicio}}</option>
 				@endforeach
@@ -107,6 +111,7 @@
 			<label>Tipo Producto</label>
 			<select class="form-control select2" style="width: 100%;" name="tipo_producto_id" id="tipo_producto_id">
 				<option value="">Seleccione un tipo de producto</option>
+				<!-- Se ponen los datos que sacamos de datos en el combobox -->
 				@foreach ($datos['tipos_producto'] as $tipo_producto)
 					<option value="{{$tipo_producto->id}}">{{$tipo_producto->tipo_producto}}</option>
 				@endforeach
@@ -120,6 +125,7 @@
 			<label>Estado del Envio</label>
 			<select class="form-control select2" style="width: 100%;" name="estado_envio_id" id="estado_envio_id">
 				<option value="">Seleccione un estado de envio</option>
+				<!-- Se ponen los datos que sacamos de datos en el combobox -->
 				@foreach ($datos['estados_envio'] as $estado_envio)
 					<option value="{{$estado_envio->id}}">{{$estado_envio->estado_envio}}</option>
 				@endforeach
@@ -129,6 +135,7 @@
 </div>
 
 @section('script_clasificacion')
+<!-- Se utilizan los scripts que se encuentran en public\js para que sirvan los combobox anidados de ciudad y zona -->
 <script src="{{ asset('js/ciudades.js') }}"></script>
 <script src="{{ asset('js/zonas.js') }}"></script>
 @endsection

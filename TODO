@@ -1,6 +1,6 @@
 TODO list
 
-    - ANADIR ADMIN A EMPLEADO
-    - Llenar base de datos con los datos acordados de las parametricas
+    - Anadir rol de admin a empleados e implementar su funcionalidad para registrar empleados
+    - Llenar base de datos con los datos acordados de las parametricas(paises, ciudades, zonas)
     - Evaluar posibilidad de generar espacio disponible por bandeja
 

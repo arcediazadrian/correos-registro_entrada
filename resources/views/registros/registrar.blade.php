@@ -1,3 +1,5 @@
+<!-- Esta es la vista de registro general, dependiendo del area de cada usuario se tiene un diferente contenido -->
+
 @extends('adminlte::page')
 
 @section('htmlheader_title')
@@ -40,11 +42,11 @@
 								
                             @elseif($datos['area']->nombre == 'Almacenaje' && $datos['rango']->nombre == 'Empleado')
 
-                                @include('registros.formularios.almacenaje')
+                                @include('registros.formularios.almacenaje.registro')
                            
                             @elseif($datos['area']->nombre == 'Entrega' && $datos['rango']->nombre == 'Empleado')
 
-                                @include('registros.formularios.entrega')
+                                @include('registros.formularios.entrega.registro')
 
                             @endif
 								

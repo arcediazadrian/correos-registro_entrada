@@ -1,3 +1,4 @@
+<!-- Esta es la plantilla de la pagina de inicio -->
 @extends('adminlte::layouts.app')
 
 @section('htmlheader_title')

@@ -31,6 +31,9 @@ use App\EstadoBitacora;
 
 class RegistroController extends Controller
 {
+    /*
+    * registro: En esta funcion se redirecciona a la pagina correcta dependiendo del area y rango(cargo)
+    */
     public function registro(){
         $id = auth()->user()->id;
         $empleado = Empleado::all()->where('user_id',$id)->first();
@@ -47,30 +50,38 @@ class RegistroController extends Controller
             return "AREA NOT FOUND";
         }
     }
-    
+
+    /*
+    * registroEntrada: recibe el codigo de envio de un paquete, si existe muestra un formulario sino envia un error
+    */
     public function registroEntrega(Request $request){
         $id = auth()->user()->id;
         $empleado = Empleado::all()->where('user_id',$id)->first();
         $area = Area::find($empleado->area_id);
         $rango = Rango::find($empleado->rango_id);
 
-        if($area->nombre == 'Clasificacion' || $area->nombre == 'Almacenaje'){
+        if($area->nombre == 'Clasificacion' || $area->nombre == 'Almacenaje' || $rango->nombre != 'Empleado'){
             return redirect('registro/registroPaquete')->with('error', 'Pagina no autorizada');
         }
 
+        //codigo de envio
         $envio = Envio::all()->where('codigo_envio',$request->input('codigo_envio'))->first();
         
         if($envio == null){
+            //no se ha registrado un paquete con el codigo de envio entonces devuelve un error
             return redirect('registro/buscar')->with('error', 'Paquete no encontrado');
         }else{
             $entrega = Entrega::all()->where('registro_id', $envio->registro_id)->first();
             $factura = Factura::all()->where('registro_id', $envio->registro_id)->first();
             if($entrega == null && $factura == null){
+                //no se ha entregado este paquete todavia
                 $registro_id = $envio->registro_id;
                 $almacenaje = Almacenaje::where('registro_id', $registro_id)->first();
                 if($almacenaje == null){
+                    //no se ha registrado en almacenaje todavia
                     return redirect('registro/buscar')->with('error', 'No se ha creado un registro de Almacenamiento con este codigo de envio');
                 }else{
+                    //si se ha registrado en almacenaje
                     $ubicacion = 'Ubicacion en el almacen: '.$almacenaje->ubicacion;
 
                     $tipo_servicio_id = $envio->tipo_servicio_id;
@@ -83,34 +94,44 @@ class RegistroController extends Controller
                     return view('registros.registrar', array('datos'=>$datos));   
                 }
             }else{
+                //ya se entrego este paquete entonces manda un error
                 return redirect('registro/buscar')->with('error', 'Ya se creo un registro de Entrega con esta codigo de envio');
             }
         }
         
     }
 
+    /*
+    * registroPaquete: Le pasa los datos necesarios al formulario de registro de clasificacion y almacenaje y lo muestra 
+    */
     public function registroPaquete(){
         $id = auth()->user()->id;
         $empleado = Empleado::all()->where('user_id',$id)->first();
         $area = Area::find($empleado->area_id);
         $rango = Rango::find($empleado->rango_id);
 
-        if($area->nombre == 'Entrega'){
+        if($area->nombre == 'Entrega' || $rango->nombre != 'Empleado'){
             return redirect('registro/buscar')->with('error', 'Pagina no autorizada');
         }
         
         $datos = ['empleado'=>$empleado, 'area'=>$area, 'rango'=>$rango];
+        
+        //genera los datos necesario para el formulario dependiedo del area y rango
         $datos = $this->generarDatos($datos, $datos['area']->nombre, $rango);
+
         return view('registros.registrar', array('datos'=>$datos));   
     }
 
+    /*
+    * validacionPaquete: muestra los registros que pueden ser validados
+    */
     public function validacionPaquete(){
         $id = auth()->user()->id;
         $empleado = Empleado::all()->where('user_id',$id)->first();
         $area = Area::find($empleado->area_id);
         $rango = Rango::find($empleado->rango_id);
 
-        if($area->nombre == 'Clasificacion'){
+        if($area->nombre == 'Clasificacion' && $rango->nombre == 'Supervisor'){
 
         $registros = $this->generarRegistros($empleado->ciudad_id, $area->nombre, $rango->nombre);
         $datos = ['empleado'=>$empleado, 'area'=>$area, 'rango'=>$rango, 'registros'=>$registros];
@@ -119,29 +140,36 @@ class RegistroController extends Controller
         }
     }
 
+    /*
+    * validar: valida los registros escogidos en la bitacora y crea un nuevo registro de bitacora donde 
+    * dice a que area se deriva el paquete
+    */
     public function validar(Request $request){
         $id = auth()->user()->id;
         $empleado = Empleado::all()->where('user_id',$id)->first();
         $area = Area::find($empleado->area_id);
         $rango = Rango::find($empleado->rango_id);
 
-        if($area->nombre == 'Clasificacion'){
+        if($area->nombre == 'Clasificacion' && $rango->nombre == 'Supervisor'){
         $registros = $this->generarRegistros($empleado->ciudad_id, $area->nombre, $rango->nombre);
 
         $datos = ['area'=>$area];
 
         foreach ($registros as $registro) {
             if($request->input($registro->envio_codigo) != null){
+                //ver si se ha escogido el paquete con codigo de envio para ser validado
                 $bitacora = null;
                 if($registro->bitacora_estado_id == 2){
                     $bitacora = BitacoraDeRegistro::all()->where('estado_bitacora_id', 2)->where('registro_id', $registro->registro_id)->first(); //Registrado
                 }elseif($registro->bitacora_estado_id == 11){
                     $bitacora = BitacoraDeRegistro::all()->where('estado_bitacora_id', 11)->where('registro_id', $registro->registro_id)->first(); //Registrado
                 }
+                //cambiar el registro de la bitacora de registrado a validado 
                 $bitacora->estado_bitacora_id = '12'; // Validado
                 $bitacora->save();
                 $datos['bitacora_empleado'] = $bitacora;
 
+                //Crear un nuevo registro con el area a donde se va a derivar el paquete
                 $bitacora = new BitacoraDeRegistro;
                 $bitacora->empleado_id = $empleado->id;
                 $bitacora->registro_id = $registro->registro_id;
@@ -162,7 +190,9 @@ class RegistroController extends Controller
 
     }
     
-
+    /*
+    * guardar: guarda los datos enviados del formulario de registro
+    */
     public function guardar(Request $request){
         $id = auth()->user()->id;
         $empleado = Empleado::all()->where('user_id', $id)->first();
@@ -174,6 +204,7 @@ class RegistroController extends Controller
         $this->validate($request, $validacion['conditions'], $validacion['errormsgs']);
                 
         $datos = $this->guardarDatos($request, $area->nombre, $empleado, $rango);
+        // Si existen errores al guardar los datos mandar un error
         if($datos['error'] == 1){
             return redirect('registro/registroPaquete')->with('error', 'Ya se creo un registro de '.$area->nombre.' con este codigo de envio');
         }else{
@@ -184,13 +215,16 @@ class RegistroController extends Controller
         }
     }
 
+    /*
+    * buscar: muestra el formulario de busqueda de paquetes para entregas
+    */
     public function buscar(){
         $id = auth()->user()->id;
         $empleado = Empleado::all()->where('user_id', $id)->first();
         $area = Area::find($empleado->area_id);
         $rango = Rango::find($empleado->rango_id);
 
-        if($area->nombre == 'Clasificacion' || $area->nombre == 'Almacenaje'){
+        if($area->nombre == 'Clasificacion' || $area->nombre == 'Almacenaje' || $rango->nombre != 'Empleado'){
             return redirect('registro/registroPaquete')->with('error', 'Pagina no autorizada');
         }
         $datos = ['empleado'=>$empleado, 'area'=>$area, 'rango'=>$rango];
@@ -199,6 +233,9 @@ class RegistroController extends Controller
 
     }
 
+    /*
+    * generarDatos: genera los datos necesarios para llenar los campos parametricos en los formularios
+    */
     public function generarDatos($datos, $nombre, $rango){
         if($nombre == 'Clasificacion' && $rango->nombre == 'Empleado'){
             $datos['paises'] = $paises = $this->getPaises();
@@ -218,6 +255,9 @@ class RegistroController extends Controller
         return $datos;
     }
 
+    /*
+    * generarDatosValidacion: generar condiciones de validacion de los formularios
+    */
     public function generarDatosValidacion($nombre, $rango){
         $datos['errormsgs'] = ['required'=>'El campo :attribute es obligatorio', 
                                'unique'=>':attribute debe ser unico',
@@ -253,6 +293,10 @@ class RegistroController extends Controller
         return $datos;
     }
 
+    /*
+    * guardarDatos: guarda los datos en la base de datos y si existe algun error lo manda
+    * en esta funcion tambien se crean las bitacoras y se hace la logica para sus estados
+    */
     public function guardarDatos(Request $request, $nombre, $empleado, $rango){
         $datos = [];
         $datos['error'] = 0;
@@ -327,7 +371,7 @@ class RegistroController extends Controller
                 $bitacora->empleado_id = $empleado->id;
                 $bitacora->registro_id = $registro_id;
                 $bitacora->ciudad_id = $empleado->ciudad_id;
-                $bitacora->estado_bitacora_id = '3';
+                $bitacora->estado_bitacora_id = '3'; //Admitido
     
                 $bitacora->save();
                 $datos['bitacora'] = $bitacora;
@@ -396,6 +440,9 @@ class RegistroController extends Controller
         return $datos;
     }
 
+    /*
+    * getCiudadesDePais: toma un id de un pais y devuelve sus ciudades
+    */
     public function getCiudadesDePais($id) 
     {
         $pais = Pais::find($id);
@@ -405,6 +452,9 @@ class RegistroController extends Controller
 
     }
 
+    /*
+    * getZonasDeCiudad: toma un id de una ciudad y devuleve sus zonas
+    */
     public function getZonasDeCiudad($id) 
     {
         $states = DB::table("zonas")->where("ciudad_id",$id)->pluck("nombre","id");
@@ -413,6 +463,9 @@ class RegistroController extends Controller
 
     }
 
+    /*
+    * generarTarifa: genera la tarifa de un paquete dependiendo de su peso y el tipo de servicio
+    */
     public function generarTarifa($tipo_servicio_id, $peso){
         $tipo_servicio = TipoServicio::find($tipo_servicio_id);
         $tarifa = 0;
@@ -427,6 +480,9 @@ class RegistroController extends Controller
 
     }
 
+    /*
+    * generarRegistros: genera los registros a ser validados de una ciudad y area
+    */
     public function generarRegistros($id_ciudad, $area, $rango){
         if($area == 'Clasificacion' && $rango == 'Supervisor'){
             $registros = DB::select('SELECT B.registro_id as registro_id, B.updated_at as bitacora_fecha, B.empleado_id as bitacora_empleado_id, B.estado_bitacora_id as bitacora_estado_id, B.ciudad_id as bitacora_ciudad_id,
@@ -439,6 +495,7 @@ class RegistroController extends Controller
                 $user = User::find($empleado->user_id);
                 $registro->empleado_nombre = $user->name;   
 
+                //Estos ifs sirven para mostrar en la tabla el estado al q cambiara el estado de bitacora una vez validados los registros
                 if($registro->bitacora_estado_id == 2){
                     $tipo_servicio = TipoServicio::find($registro->envio_tipo_servicio_id);
                     if($tipo_servicio->tipo_servicio == 'Encomienda'){
@@ -499,13 +556,5 @@ class RegistroController extends Controller
     public function getEstadosEntrega(){
         $estados_entrega = EstadoEntrega::where('esActivo', 1)->get();
         return $estados_entrega;
-    }
-
-
-    public function fillDataBase(){
-        $bitacora = new Area;
-        $bitacora->nombre = 'Almacenaje';
-        $bitacora->esActivo = '1';
-        $bitacora->save();
     }
 }

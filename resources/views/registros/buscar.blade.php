@@ -1,3 +1,5 @@
+<!-- Esta vista sirve para los usuarios de entrega, sirve para que puedan buscar si los paquetes estan en almacenaje -->
+
 @extends('adminlte::layouts.app')
 
 @section('htmlheader_title')

@@ -1,3 +1,5 @@
+<!-- Mediante este componente parcial se pueden mandar mensajes de error y de exito -->
+
 @if (count($errors) > 0)
     @foreach ($errors->all() as $error)
         <div class="alert alert-danger">

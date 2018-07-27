@@ -1,3 +1,5 @@
+<!-- Esta es la vista en la que se guardan los datos, la vista en si no hace nada pero el metodo del controlador que llama a esta vista guarda los datos -->
+
 @extends('adminlte::page')
 
 @section('htmlheader_title')

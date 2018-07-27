@@ -123,7 +123,7 @@
 <br>
 
 Emplead@: {{$datos['empleado']['nombre']}}<br>
-Rango: {{$datos['rango']}}<br>
+Cargo: {{$datos['rango']}}<br>
 Ciudad: {{$datos['ciudad']}}<br>
 Registros: {{count($datos['registros'])}}<br><br><br><br>
 
@@ -133,9 +133,9 @@ Registros: {{count($datos['registros'])}}<br><br><br><br>
         @elseif($datos['area'] == 'Clasificacion' && $datos['rango'] == 'Supervisor')
             @include('reportes.clasificacion.supervisor')
         @elseif($datos['area'] == 'Almacenaje' && $datos['rango'] == 'Empleado')
-            @include('reportes.almacenaje')
+            @include('reportes.almacenaje.empleado')
         @elseif($datos['area'] == 'Entrega' && $datos['rango'] == 'Empleado')
-            @include('reportes.entrega')
+            @include('reportes.entrega.empleado')
         @endif 
 </div>
 

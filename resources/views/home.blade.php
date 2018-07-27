@@ -1,3 +1,4 @@
+<!-- Esta es la pagina de inicio -->
 @extends('adminlte::page')
 
 @section('htmlheader_title')

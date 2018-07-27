@@ -10,7 +10,8 @@
         <div class="login-box">
             <div class="login-logo">
                 <a href="{{ url('/home') }}">Correos</a>
-            </div><!-- /.login-logo -->
+            </div>
+            <!-- /.login-logo -->
 
         @if (count($errors) > 0)
             <div class="alert alert-danger">

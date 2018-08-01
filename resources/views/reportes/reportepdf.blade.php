@@ -9,6 +9,15 @@
             font-family: Arial, Helvetica, sans-serif;
             font-size:11px;
         }
+        table {
+           border-collapse: collapse;
+        }
+        td#tdb {
+            border: 1px solid black;
+        }
+        tr#trb {
+            border: 1px solid black;
+        }
         table.tableizer-table {
             font-size: 12px;
             border: 1px solid #000000;
@@ -100,7 +109,7 @@
             <td width="4%"></td>
             <td width="4%"></td>
             <td align="center" rowspan="3" width="65%"><h2>REPORTE {{$datos['fecha']['fecha']}}</h2></td>
-        <td width="5%"><div class="cites">DIA</div></td>
+            <td width="5%"><div class="cites">DIA</div></td>
             <td width="5%"><div class="cites">MES</div></td>
             <td width="5%"><div class="cites">AÑO</div></td>
         </tr>
@@ -127,7 +136,7 @@ Cargo: {{$datos['rango']}}<br>
 Ciudad: {{$datos['ciudad']}}<br>
 Registros: {{count($datos['registros'])}}<br><br><br><br>
 
-<div class="tableEspaciosTitulo">
+<table align="center" width="100%">
         @if ($datos['area'] == 'Clasificacion' && $datos['rango'] == 'Empleado')
             @include('reportes.clasificacion.empleado')
         @elseif($datos['area'] == 'Clasificacion' && $datos['rango'] == 'Supervisor')
@@ -137,7 +146,7 @@ Registros: {{count($datos['registros'])}}<br><br><br><br>
         @elseif($datos['area'] == 'Entrega' && $datos['rango'] == 'Empleado')
             @include('reportes.entrega.empleado')
         @endif 
-</div>
+<table>
 
 </body>
 </html>

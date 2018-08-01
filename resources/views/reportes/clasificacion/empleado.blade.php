@@ -1,27 +1,34 @@
 @if ($datos['rango'] == 'Empleado')
+
+<tr>
+    <td colspan="3" align="center" id="tdb"><b>Registro</b></td>
+    <td colspan="3" align="center" id="tdb"><b>Destinatario</b></td>
+    <td colspan="3" align="center" id="tdb"><b>Envio</b></td>
+</tr>
+<tr>
+    <td id="tdb"><b>Codigo</b></td>
+    <td id="tdb"><b>Hora</b></td>
+    <td id="tdb"><b>Estado</b></td>
+    <td id="tdb"><b>Apellido</b></td>
+    <td id="tdb"><b>Nombre</b></td>
+    <td id="tdb"><b>Pais</b></td>
+    <td id="tdb"><b>Peso</b></td>
+    <td id="tdb"><b>Tipo de Servicio</b></td>
+    <td id="tdb"><b>Tipo de Producto</b></td>
+</tr>
     
 @foreach ($datos['registros'] as $registro)
-Codigo: {{$registro->envio_codigo}}<br>
-Hora Registro: {{$registro->bitacora_hora}}<br>
-Estado: {{$registro->bitacora_estado_nombre}}<br><br>
-<b>Datos del Destinatario</b><br>
-Apellido Paterno : {{$registro->destinatario_apellido_paterno}}<br>
-Apellido Materno : {{$registro->destinatario_apellido_materno}}<br>
-Nombre : {{$registro->destinatario_nombre}}<br>
-Telefono: {{$registro->destinatario_telefono}}<br>
-Calle o Avenida: {{$registro->destinatario_calle_avenida}}<br>
-Edificio o Nro: {{$registro->destinatario_edificio_nro}}<br>
-    Telefono: {{$registro->destinatario_telefono}}<br>
-    Pais: {{$registro->destinatario_pais_nombre}}<br>
-    Ciudad: {{$registro->destinatario_ciudad_nombre}}<br>
-    Zona: {{$registro->destinatario_zona_nombre}}<br><br>
-    <b>Datos del Envio</b><br>
-    Fecha de Envio del Origen: {{$registro->envio_fecha}}<br>
-    Peso del Envio: {{$registro->envio_peso}}<br>
-    Pais de Origen: {{$registro->envio_pais_nombre}}<br>
-    Tipo de Servicio: {{$registro->envio_tipo_servicio_nombre}}<br>
-    Tipo de Producto: {{$registro->envio_tipo_producto_nombre}}<br>
-    Estado del Envio: {{$registro->envio_estado_nombre}}<br><br>
-    <hr>
-    @endforeach
+    <tr>
+        <td id="tdb">{{$registro->envio_codigo}}</td>
+        <td id="tdb">{{$registro->bitacora_hora}}</td>
+        <td id="tdb">{{$registro->bitacora_estado_nombre}}</td>
+        <td id="tdb">{{$registro->destinatario_apellido_paterno}}</td>
+        <td id="tdb">{{$registro->destinatario_nombre}}</td>
+        <td id="tdb">{{$registro->destinatario_pais_nombre}}</td>
+        <td id="tdb">{{$registro->envio_peso}}kg</td>
+        <td id="tdb">{{$registro->envio_tipo_servicio_nombre}}</td>
+        <td id="tdb">{{$registro->envio_tipo_producto_nombre}}</td>
+    </tr>
+
+@endforeach
 @endif

@@ -64,7 +64,7 @@
 	<div class="col-md-6"> 
 		<div class="form-group">
 			{{form::label('codigo_envio', 'Codigo de Envio')}}
-			{{form::text('codigo_envio', '', ['class' => 'form-control', 'placeholder' => 'Codigo de Envio', 'pattern'=>'[A-Za-z0-9]{13}', 'title'=>'Codigo de Envio debe tener 13 caracteres'])}}
+			{{form::text('codigo_envio', '', ['class' => 'form-control', 'placeholder' => 'Codigo de Envio', 'pattern'=>'[A-Z]{2}[0-9]{9}[A-Z]{2}', 'title'=>'Codigo de Envio debe tener 13 caracteres'])}}
 		</div>
 		<div class="form-group">
 			<label>Pais de Envio</label>
@@ -98,7 +98,7 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label>Tipo Envio</label>
+			<label>Tipo Servicio</label>
 			<select class="form-control select2" style="width: 100%;" name="tipo_servicio_id" id="tipo_servicio_id">
 				<option value="">Seleccione un tipo de servicio</option>
 				<!-- Se ponen los datos que sacamos de datos en el combobox -->

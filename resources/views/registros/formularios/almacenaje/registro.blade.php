@@ -2,7 +2,7 @@
     <div class="col-md-6 col-md-offset-3">
         <div class="form-group">
             {{form::label('codigo_envio', 'Codigo de Envio')}}
-            {{form::text('codigo_envio', '', ['class' => 'form-control', 'placeholder' => 'Codigo de Envio', 'pattern'=>'[a-zA-Z0-9]{13}', 'title'=>'Codigo de Envio debe tener 13 caracteres'])}}
+            {{form::text('codigo_envio', '', ['class' => 'form-control', 'placeholder' => 'Codigo de Envio', 'pattern'=>'[A-Z]{2}[0-9]{9}[A-Z]{2}', 'title'=>'Codigo de Envio debe tener 13 caracteres'])}}
         </div>
     </div>
 </div>

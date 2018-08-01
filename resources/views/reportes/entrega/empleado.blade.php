@@ -1,20 +1,31 @@
 @if ($datos['rango'] == 'Empleado')
+
+<tr>
+        <td colspan="3" align="center" id="tdb"><b>Registro</b></td>
+        <td colspan="2" align="center" id="tdb"><b>Entrega</b></td>
+        <td colspan="4" align="center" id="tdb"><b>Factura</b></td>
+    </tr>
+    <tr>
+        <td id="tdb"><b>Codigo</b></td>
+        <td id="tdb"><b>Hora</b></td>
+        <td id="tdb"><b>Estado</b></td>
+        <td id="tdb"><b>Monto</b></td>
+        <td id="tdb"><b>Estado</b></td>
+        <td id="tdb"><b>Nro</b></td>
+        <td id="tdb"><b>Nit</b></td>
+        <td id="tdb"><b>Nombre</b></td>
+        <td id="tdb"><b>Monto</b></td>
+    </tr>
+    
 @foreach ($datos['registros'] as $registro)
-    Codigo: {{$registro->envio_codigo}}<br>
-    Hora Registro: {{$registro->bitacora_hora}}<br>
-    Estado: {{$registro->bitacora_estado_nombre}}<br><br>
-    <b>Datos de Entrega</b><br>
-    Monto a pagar: {{$registro->entrega_monto_a_pagar}} Bs<br>
-    Estado Entrega: {{$registro->entrega_estado_nombre}}<br><br>
-    @if ($registro->factura_es_factura == 1)
-    <b>Datos de la Factura</b><br>
-    Nro Factura: {{$registro->factura_nro}}<br>
-    @if ($registro->factura_es_manual == 1)
-        Nit: {{$registro->factura_nit}}<br>
-        Nombre: {{$registro->factura_nombre}}<br>
-        Monto: {{$registro->factura_monto}} Bs<br><br>    
-    @endif  
-    @endif
-    <hr>
+    <td id="tdb">{{$registro->envio_codigo}}</td>
+    <td id="tdb">{{$registro->bitacora_hora}}</td>
+    <td id="tdb">{{$registro->bitacora_estado_nombre}}</td>
+    <td id="tdb">{{$registro->entrega_monto_a_pagar}}</td>
+    <td id="tdb">{{$registro->entrega_estado_nombre}}</td>
+    <td id="tdb">{{$registro->factura_nro}}</td>
+    <td id="tdb">{{$registro->factura_nit}}</td>
+    <td id="tdb">{{$registro->factura_nombre}}</td>
+    <td id="tdb">{{$registro->factura_monto}}</td> 
 @endforeach
 @endif

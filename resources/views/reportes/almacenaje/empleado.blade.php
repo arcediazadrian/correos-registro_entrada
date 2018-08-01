@@ -1,10 +1,21 @@
 @if ($datos['rango'] == 'Empleado')
-@foreach ($datos['registros'] as $registro)
-    Codigo: {{$registro->envio_codigo}}<br>
-    Hora Registro: {{$registro->bitacora_hora}}<br>
-    Estado: {{$registro->bitacora_estado_nombre}}<br><br>
-    <b>Datos del Almacenaje</b><br>
-    Ubicacion : {{$registro->almacenaje_ubicacion}}<br><br>
-    <hr>
-@endforeach
+
+<tr>
+    <td colspan="3" align="center" id="tdb"><b>Registro</b></td>
+    <td colspan="1" align="center" id="tdb"><b>Almacenaje</b></td>
+</tr>
+<tr>
+    <td id="tdb"><b>Codigo</b></td>
+    <td id="tdb"><b>Hora</b></td>
+    <td id="tdb"><b>Estado</b></td>
+    <td id="tdb"><b>Ubicacion</b></td>
+</tr>
+
+    @foreach ($datos['registros'] as $registro)
+        <td id="tdb">{{$registro->envio_codigo}}</td>
+        <td id="tdb">{{$registro->bitacora_hora}}</td>
+        <td id="tdb">{{$registro->bitacora_estado_nombre}}</td>
+        <td id="tdb">{{$registro->almacenaje_ubicacion}}</td>
+    @endforeach
 @endif
+
